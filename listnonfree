@@ -1,6 +1,6 @@
 #!/bin/bash
 curl -s https://git.parabola.nu/blacklist.git/plain/blacklist.txt | grep "nonfree" > ~/.cache/blacklist
-mapfile -t installed < <(sudo pacman -Qq)
+mapfile -t installed < <(pacman -Qq)
 for program in "${installed[@]}"
 do
 	grep -q -w "^$program:" ~/.cache/blacklist && echo -n -e "\e[1m$program \e[0m"
