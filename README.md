@@ -1,5 +1,5 @@
 # listnonfree
-Posix shell script to list installed proprietary programs on arch linux.  
+Bash script to list installed proprietary programs on arch linux.  
 This script uses parabola's blacklist, selecting only the [nonfree] and [uses-nonfree] lines, not the [branding] or simmilar ones.
 
 https://wiki.parabola.nu/Blacklist
@@ -10,3 +10,4 @@ https://wiki.parabola.nu/Blacklist
 - cut
 - sed
 - pacman
+- xargs
