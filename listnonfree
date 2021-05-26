@@ -1,7 +1,7 @@
 #!/bin/bash
 blacklist="$HOME/.cache/blacklist"
 
-curl -s https://git.parabola.nu/blacklist.git/plain/blacklist.txt | grep "nonfree" > $blacklist
+[ -e $blacklist ] || curl -s https://git.parabola.nu/blacklist.git/plain/blacklist.txt | grep "nonfree" > $blacklist
 
 sed -n "$(grep -Fnxf <(pacman -Qq) <(cut -d: -f1 $blacklist) |\
     cut -d: -f1 |\
