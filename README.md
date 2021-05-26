@@ -8,4 +8,5 @@ https://wiki.parabola.nu/Blacklist
 - curl
 - grep
 - cut
+- sed
 - pacman
