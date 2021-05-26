@@ -1,5 +1,13 @@
-#!/bin/sh
-curl -s https://git.parabola.nu/blacklist.git/plain/blacklist.txt | grep "nonfree" > ~/.cache/blacklist
-pacman -Qq | while read line ; do
-   grep -w -m 1 "^$line:" ~/.cache/blacklist | cut -d: -f1,5,6- &
-done
+#!/bin/bash
+blacklist="$HOME/.cache/blacklist"
+
+curl -s https://git.parabola.nu/blacklist.git/plain/blacklist.txt | grep "nonfree" > $blacklist
+
+sed -n "$(grep -Fnxf <(pacman -Qq) <(cut -d: -f1 $blacklist) |\
+    cut -d: -f1 |\
+    xargs |\
+    sed 's/ /p;/g')q" $blacklist |\
+    cut -d: -f1,5- |\
+    sed 's/\[FIXME:.*\]//g' |\
+    sed 's/:/\n    /g' |\
+    grep -E --color '^[a-z].*$|$'
