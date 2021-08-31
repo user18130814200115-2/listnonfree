@@ -1,13 +1,6 @@
 #!/bin/bash
 blacklist="$HOME/.cache/blacklist"
 
-[ -e $blacklist ] || curl -s https://git.parabola.nu/blacklist.git/plain/blacklist.txt | grep "nonfree" > $blacklist
+curl -s https://git.parabola.nu/blacklist.git/plain/blacklist.txt | grep "nonfree]" > $blacklist
 
-sed -n "$(grep -Fnxf <(pacman -Qq) <(cut -d: -f1 $blacklist) |\
-    cut -d: -f1 |\
-    xargs |\
-    sed 's/ /p;/g')q" $blacklist |\
-    cut -d: -f1,5- |\
-    sed 's/\[FIXME:.*\]//g' |\
-    sed 's/:/\n    /g' |\
-    grep -E --color '^[a-z].*$|$'
+printf "grep \"%s^$\" $blacklist" "$(printf "^%s\\\\\|" $(grep -Fxf <(pacman -Qq) <(cut -d: -f1 $blacklist)))" | sh | cut -d: -f1,5- | grep --color '^[^:]*'
