@@ -5,9 +5,9 @@ This script uses parabola's blacklist, selecting only the [nonfree] and [uses-no
 https://wiki.parabola.nu/Blacklist
 
 ## dependencies
+- bash
+- printf 
 - curl
 - grep
 - cut
-- sed
 - pacman
-- xargs
